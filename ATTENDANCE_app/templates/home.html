@@ -1,23 +1,175 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="row justify-content-center">
-    <div class="col-md-6">
-        <div class="card mt-5">
-            <div class="card-body text-center">
-                <h1 class="card-title">Employee Attendance System</h1>
-                <p class="card-text">Track your attendance and stay updated with company announcements</p>
-                
-                <div class="mt-4">
-                    <a href="{% url 'login' %}" class="btn btn-primary btn-lg me-3">
-                        <i class="fas fa-sign-in-alt"></i> Login
-                    </a>
-                    <a href="{% url 'signup' %}" class="btn btn-outline-primary btn-lg">
-                        <i class="fas fa-user-plus"></i> Sign Up
-                    </a>
-                </div>
+<div class="home-container">
+    <div class="hero-card">
+        <h1 class="hero-title">Employee Attendance System</h1>
+        <p class="hero-subtitle">
+            Experience the future of workforce management with our advanced attendance tracking system. 
+            Stay connected, track efficiently, and embrace digital transformation.
+        </p>
+        
+        <div class="btn-container">
+            <a href="{% url 'login' %}" class="btn-hero">
+                <span class="btn-icon">⚡</span>
+                <span>Login</span>
+            </a>
+            <a href="{% url 'signup' %}" class="btn-hero btn-hero-outline">
+                <span class="btn-icon">👤</span>
+                <span>Sign Up</span>
+            </a>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-item">
+                <div class="feature-icon">⏰</div>
+                <h4 class="feature-title">Real-time Tracking</h4>
+                <p class="feature-desc">Monitor attendance with live updates</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">📊</div>
+                <h4 class="feature-title">Smart Analytics</h4>
+                <p class="feature-desc">Get insights with advanced reporting</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">🔒</div>
+                <h4 class="feature-title">Secure Access</h4>
+                <p class="feature-desc">Enterprise-grade security</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">🚀</div>
+                <h4 class="feature-title">Future Ready</h4>
+                <p class="feature-desc">Built with cutting-edge technology</p>
             </div>
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block scripts %}
+<style>
+    .home-container {
+        min-height: 80vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem 0;
+    }
+
+    .hero-card {
+        background: var(--card-bg);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        padding: 3rem;
+        max-width: 800px;
+        text-align: center;
+        box-shadow: 0 0 50px rgba(0, 243, 255, 0.1);
+    }
+
+    .hero-title {
+        color: var(--text-primary);
+        font-size: 3rem;
+        margin-bottom: 1.5rem;
+        background: linear-gradient(45deg, var(--primary-glow), var(--accent-glow));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .hero-subtitle {
+        color: var(--text-secondary);
+        font-size: 1.2rem;
+        margin-bottom: 3rem;
+        line-height: 1.6;
+    }
+
+    .btn-container {
+        display: flex;
+        gap: 2rem;
+        justify-content: center;
+        margin-bottom: 4rem;
+        flex-wrap: wrap;
+    }
+
+    .btn-hero {
+        background: linear-gradient(45deg, var(--primary-glow), var(--secondary-glow));
+        border: none;
+        border-radius: 12px;
+        color: white;
+        padding: 1rem 2.5rem;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .btn-hero:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 30px rgba(0, 243, 255, 0.4);
+        color: white;
+    }
+
+    .btn-hero-outline {
+        background: transparent;
+        border: 2px solid var(--primary-glow);
+        color: var(--primary-glow);
+    }
+
+    .btn-hero-outline:hover {
+        background: rgba(0, 243, 255, 0.1);
+    }
+
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 2rem;
+        padding-top: 3rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .feature-item {
+        text-align: center;
+        padding: 1.5rem;
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 15px;
+        transition: all 0.3s ease;
+    }
+
+    .feature-item:hover {
+        transform: translateY(-5px);
+        background: rgba(255, 255, 255, 0.05);
+    }
+
+    .feature-icon {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .feature-title {
+        color: var(--text-primary);
+        margin-bottom: 0.5rem;
+    }
+
+    .feature-desc {
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+        .hero-title {
+            font-size: 2rem;
+        }
+        
+        .btn-container {
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .features-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
 {% endblock %}

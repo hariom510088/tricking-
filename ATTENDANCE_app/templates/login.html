@@ -1,34 +1,161 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="row justify-content-center">
-    <div class="col-md-5">
-        <div class="card mt-5">
-            <div class="card-header">
-                <h4 class="mb-0">Employee Login</h4>
+<div class="login-container">
+    <div class="login-card">
+        <div class="card-header">
+            <h4>Employee Login</h4>
+            <small>Access Your Attendance Portal</small>
+        </div>
+        <div class="card-body">
+            {% if form.errors %}
+            <div class="alert" role="alert">
+                Invalid username or password. Please try again.
             </div>
-            <div class="card-body">
-                <form method="post">
-                    {% csrf_token %}
-                    
-                    <div class="mb-3">
-                        <label class="form-label">Username</label>
-                        <input type="text" name="username" class="form-control" required>
-                    </div>
+            {% endif %}
 
-                    <div class="mb-3">
-                        <label class="form-label">Password</label>
-                        <input type="password" name="password" class="form-control" required>
-                    </div>
-
-                    <button type="submit" class="btn btn-primary w-100">Login</button>
-                </form>
+            <form method="post">
+                {% csrf_token %}
                 
-                <div class="text-center mt-3">
-                    <a href="{% url 'signup' %}">Don't have an account? Sign up here</a>
+                <div class="mb-4">
+                    <label class="form-label">Username</label>
+                    <input type="text" name="username" class="form-control" required 
+                           placeholder="Enter your username">
                 </div>
+
+                <div class="mb-4">
+                    <label class="form-label">Password</label>
+                    <input type="password" name="password" class="form-control" required 
+                           placeholder="Enter your password">
+                </div>
+
+                <button type="submit" class="btn-login">
+                    <span>Login</span>
+                </button>
+            </form>
+            
+            <div class="text-center mt-4">
+                <a href="{% url 'signup' %}" class="signup-link">
+                    Don't have an account? Sign up here →
+                </a>
             </div>
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block scripts %}
+<style>
+    .login-container {
+        min-height: 80vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+    }
+
+    .login-card {
+        background: var(--card-bg);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        padding: 2.5rem;
+        width: 100%;
+        max-width: 420px;
+        box-shadow: 0 0 50px rgba(0, 243, 255, 0.1);
+    }
+
+    .card-header {
+        background: transparent;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding-bottom: 1.5rem;
+        margin-bottom: 2rem;
+        text-align: center;
+    }
+
+    .card-header h4 {
+        color: var(--text-primary);
+        font-size: 1.8rem;
+        margin-bottom: 0.5rem;
+        background: linear-gradient(45deg, var(--primary-glow), var(--accent-glow));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .card-header small {
+        color: var(--text-secondary);
+    }
+
+    .form-label {
+        color: var(--text-primary);
+        margin-bottom: 0.5rem;
+        display: block;
+    }
+
+    .form-control {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        color: var(--text-primary);
+        padding: 0.75rem 1rem;
+        transition: all 0.3s ease;
+    }
+
+    .form-control:focus {
+        background: rgba(255, 255, 255, 0.08);
+        border-color: var(--primary-glow);
+        box-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
+        color: var(--text-primary);
+    }
+
+    .btn-login {
+        background: linear-gradient(45deg, var(--primary-glow), var(--secondary-glow));
+        border: none;
+        border-radius: 12px;
+        color: white;
+        padding: 0.75rem 2rem;
+        width: 100%;
+        transition: all 0.3s ease;
+    }
+
+    .btn-login:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 30px rgba(0, 243, 255, 0.4);
+    }
+
+    .signup-link {
+        color: var(--text-secondary);
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+    .signup-link:hover {
+        color: var(--accent-glow);
+    }
+
+    .alert {
+        background: rgba(220, 53, 69, 0.1);
+        border: 1px solid rgba(220, 53, 69, 0.3);
+        color: #ff6b6b;
+        border-radius: 12px;
+        padding: 1rem;
+        margin-bottom: 1.5rem;
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const inputs = document.querySelectorAll('.form-control');
+        inputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.style.transform = 'translateY(-2px)';
+            });
+            
+            input.addEventListener('blur', function() {
+                this.parentElement.style.transform = 'translateY(0)';
+            });
+        });
+    });
+</script>
 {% endblock %}

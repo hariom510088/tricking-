@@ -6,6 +6,8 @@ from django.utils import timezone
 from datetime import date, timedelta
 from .models import Attendance, Announcement, EmployeeProfile
 from .forms import SignUpForm
+from django.contrib.auth import logout
+from django.views.decorators.http import require_POST
 
 def home(request):
     if request.user.is_authenticated:
@@ -91,6 +93,7 @@ def check_out(request):
         else:
             attendance.check_out = timezone.now()
             attendance.calculate_hours()
+            attendance.save()
             messages.success(request, 'Check-out successful!')
     except Attendance.DoesNotExist:
         messages.error(request, 'You need to check in first!')
@@ -104,3 +107,9 @@ def attendance_history(request):
     ).order_by('-date')[:30]
     
     return render(request, 'attendance_history.html', {'attendance_records': attendance_records})
+
+@require_POST
+def custom_logout(request):
+    logout(request)
+    messages.success(request, 'You have been successfully logged out!')
+    return redirect('login')

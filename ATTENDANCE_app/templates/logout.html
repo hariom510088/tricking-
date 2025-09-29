@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="logout-container">
+    <div class="logout-card">
+        <div class="logout-icon">⚡</div>
+        <h1 class="logout-title">Logout</h1>
+        <p class="logout-message">Are you sure you want to sign out of your account?</p>
+        
+        <div class="btn-container">
+            <form method="post" action="{% url 'logout' %}" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn-logout">
+                    🚪 Yes, Logout
+                </button>
+            </form>
+            
+            <a href="{% url 'dashboard' %}" class="btn-cancel">
+                ← Cancel
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<style>
+    .logout-container {
+        min-height: 80vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+    }
+
+    .logout-card {
+        background: var(--card-bg);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        padding: 3rem;
+        max-width: 500px;
+        text-align: center;
+        box-shadow: 0 0 50px rgba(0, 243, 255, 0.1);
+    }
+
+    .logout-icon {
+        font-size: 4rem;
+        margin-bottom: 1.5rem;
+        background: linear-gradient(45deg, var(--primary-glow), var(--accent-glow));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .logout-title {
+        color: var(--text-primary);
+        font-size: 2.2rem;
+        margin-bottom: 1rem;
+        background: linear-gradient(45deg, var(--primary-glow), var(--accent-glow));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .logout-message {
+        color: var(--text-secondary);
+        margin-bottom: 2rem;
+        line-height: 1.6;
+    }
+
+    .btn-container {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .btn-logout {
+        background: linear-gradient(45deg, var(--primary-glow), var(--secondary-glow));
+        border: none;
+        border-radius: 12px;
+        color: white;
+        padding: 1rem 2rem;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+
+    .btn-logout:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 30px rgba(0, 243, 255, 0.4);
+    }
+
+    .btn-cancel {
+        background: transparent;
+        border: 2px solid var(--text-secondary);
+        color: var(--text-secondary);
+        padding: 1rem 2rem;
+        border-radius: 12px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+    .btn-cancel:hover {
+        border-color: var(--accent-glow);
+        color: var(--accent-glow);
+        transform: translateY(-2px);
+    }
+
+    @media (max-width: 768px) {
+        .btn-container {
+            flex-direction: column;
+        }
+        
+        .btn-logout,
+        .btn-cancel {
+            width: 100%;
+        }
+    }
+</style>
+{% endblock %}

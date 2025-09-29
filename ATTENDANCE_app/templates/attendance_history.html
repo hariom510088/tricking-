@@ -1,43 +1,188 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="card">
-    <div class="card-header">
-        <h4 class="mb-0">Attendance History (Last 30 Days)</h4>
-    </div>
-    <div class="card-body">
-        <div class="table-responsive">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Check In</th>
-                        <th>Check Out</th>
-                        <th>Hours Worked</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for record in attendance_records %}
-                    <tr>
-                        <td>{{ record.date }}</td>
-                        <td>{{ record.check_in|time }}</td>
-                        <td>{{ record.check_out|time|default:"-" }}</td>
-                        <td>{{ record.hours_worked|default:"-" }}</td>
-                        <td>
-                            <span class="badge bg-{% if record.status == 'Present' %}success{% else %}warning{% endif %}">
-                                {{ record.status }}
-                            </span>
-                        </td>
-                    </tr>
-                    {% empty %}
-                    <tr>
-                        <td colspan="5" class="text-center">No attendance records found.</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+<div class="history-container">
+    <a href="{% url 'dashboard' %}" class="back-button">
+        <i class="fas fa-arrow-left"></i> Back to Dashboard
+    </a>
+
+    <div class="card">
+        <div class="card-header">
+            <h4 class="mb-0">Attendance History (Last 30 Days)</h4>
+        </div>
+        <div class="card-body">
+            <div class="header-info">
+                <div class="period-info">
+                    <i class="fas fa-calendar-alt"></i> Displaying records from the last 30 days
+                </div>
+                <div class="total-records">
+                    <span>Total Records: </span>
+                    <strong>{{ attendance_records|length }}</strong>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Check In</th>
+                            <th>Check Out</th>
+                            <th>Hours Worked</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for record in attendance_records %}
+                        <tr>
+                            <td><strong>{{ record.date }}</strong></td>
+                            <td>
+                                {% if record.check_in %}
+                                    <span class="text-success">{{ record.check_in|time }}</span>
+                                {% else %}
+                                    <span class="text-muted">-</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if record.check_out %}
+                                    <span class="text-warning">{{ record.check_out|time }}</span>
+                                {% else %}
+                                    <span class="text-muted">-</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if record.hours_worked %}
+                                    <span class="text-primary">{{ record.hours_worked }}</span>
+                                {% else %}
+                                    <span class="text-muted">-</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <span class="badge bg-{% if record.status == 'Present' %}success{% else %}warning{% endif %}">
+                                    {{ record.status }}
+                                </span>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="5" class="text-center text-muted">
+                                No attendance records found for the last 30 days.
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block scripts %}
+<style>
+    .history-container {
+        padding: 2rem 0;
+    }
+
+    .back-button {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: var(--text-primary);
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        display: inline-block;
+        margin-bottom: 1rem;
+    }
+
+    .back-button:hover {
+        background: rgba(0, 243, 255, 0.1);
+        border-color: var(--primary-glow);
+        color: var(--primary-glow);
+    }
+
+    .card {
+        background: var(--card-bg);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
+    }
+
+    .card-header {
+        background: rgba(255, 255, 255, 0.05);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 1.25rem 1.5rem;
+    }
+
+    .card-header h4 {
+        color: var(--text-primary);
+        background: linear-gradient(45deg, var(--primary-glow), var(--accent-glow));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .header-info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+    }
+
+    .period-info {
+        color: var(--text-secondary);
+        background: rgba(255, 255, 255, 0.05);
+        padding: 0.5rem 1rem;
+        border-radius: 10px;
+    }
+
+    .total-records strong {
+        color: var(--primary-glow);
+    }
+
+    .table {
+        color: var(--text-primary);
+        background: rgba(255, 255, 255, 0.02);
+    }
+
+    .table thead th {
+        background: rgba(0, 243, 255, 0.1);
+        border-bottom: 2px solid rgba(0, 243, 255, 0.3);
+        color: var(--primary-glow);
+    }
+
+    .table tbody tr {
+        transition: all 0.3s ease;
+    }
+
+    .table tbody tr:hover {
+        background: rgba(0, 243, 255, 0.05);
+    }
+
+    .badge {
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+    }
+
+    .bg-success {
+        background: linear-gradient(45deg, var(--accent-glow), #00cc6d) !important;
+    }
+
+    .bg-warning {
+        background: linear-gradient(45deg, #ffaa00, #ff8800) !important;
+    }
+
+    .text-success { color: var(--accent-glow) !important; }
+    .text-warning { color: #ffaa00 !important; }
+    .text-primary { color: var(--primary-glow) !important; }
+    .text-muted { color: var(--text-secondary) !important; }
+
+    @media (max-width: 768px) {
+        .header-info {
+            flex-direction: column;
+            gap: 1rem;
+        }
+    }
+</style>
 {% endblock %}

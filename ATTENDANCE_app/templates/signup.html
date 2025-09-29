@@ -1,98 +1,280 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="row justify-content-center">
-    <div class="col-md-6">
-        <div class="card mt-5">
-            <div class="card-header">
-                <h4 class="mb-0">Create Employee Account</h4>
+<div class="signup-container">
+    <div class="signup-card">
+        <div class="card-header">
+            <h4>Create Employee Account</h4>
+            <small>Join the Future of Attendance Tracking</small>
+        </div>
+        <div class="card-body">
+            {% if form.errors %}
+            <div class="alert" role="alert">
+                Please correct the errors below.
             </div>
-            <div class="card-body">
-                <form method="post">
-                    {% csrf_token %}
-                    
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label class="form-label">Employee ID</label>
-                                {{ form.employee_id }}
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label class="form-label">Username</label>
-                                {{ form.username }}
-                            </div>
-                        </div>
-                    </div>
+            {% endif %}
 
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label class="form-label">First Name</label>
-                                {{ form.first_name }}
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label class="form-label">Last Name</label>
-                                {{ form.last_name }}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Email</label>
-                        {{ form.email }}
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label class="form-label">Department</label>
-                                {{ form.department }}
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label class="form-label">Position</label>
-                                {{ form.position }}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Phone Number</label>
-                        {{ form.phone_number }}
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label class="form-label">Password</label>
-                                {{ form.password1 }}
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label class="form-label">Confirm Password</label>
-                                {{ form.password2 }}
-                            </div>
-                        </div>
-                    </div>
-
-                    <button type="submit" class="btn btn-primary w-100">Sign Up</button>
-                </form>
+            <form method="post">
+                {% csrf_token %}
                 
-                <div class="text-center mt-3">
-                    <a href="{% url 'login' %}">Already have an account? Login here</a>
+                <div class="row form-row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Employee ID</label>
+                            {{ form.employee_id }}
+                            {% if form.employee_id.errors %}
+                            <div class="errorlist">{{ form.employee_id.errors }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Username</label>
+                            {{ form.username }}
+                            {% if form.username.errors %}
+                            <div class="errorlist">{{ form.username.errors }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
                 </div>
+
+                <div class="row form-row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">First Name</label>
+                            {{ form.first_name }}
+                            {% if form.first_name.errors %}
+                            <div class="errorlist">{{ form.first_name.errors }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Last Name</label>
+                            {{ form.last_name }}
+                            {% if form.last_name.errors %}
+                            <div class="errorlist">{{ form.last_name.errors }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    {{ form.email }}
+                    {% if form.email.errors %}
+                    <div class="errorlist">{{ form.email.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="row form-row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Department</label>
+                            {{ form.department }}
+                            {% if form.department.errors %}
+                            <div class="errorlist">{{ form.department.errors }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Position</label>
+                            {{ form.position }}
+                            {% if form.position.errors %}
+                            <div class="errorlist">{{ form.position.errors }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Phone Number</label>
+                    {{ form.phone_number }}
+                    {% if form.phone_number.errors %}
+                    <div class="errorlist">{{ form.phone_number.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="row form-row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Password</label>
+                            {{ form.password1 }}
+                            {% if form.password1.errors %}
+                            <div class="errorlist">{{ form.password1.errors }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Confirm Password</label>
+                            {{ form.password2 }}
+                            {% if form.password2.errors %}
+                            <div class="errorlist">{{ form.password2.errors }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-signup">
+                    <span>Create Account</span>
+                </button>
+            </form>
+            
+            <div class="text-center mt-4">
+                <a href="{% url 'login' %}" class="login-link">
+                    Already have an account? Login here →
+                </a>
             </div>
         </div>
     </div>
 </div>
+{% endblock %}
 
+{% block scripts %}
 <style>
-    input { width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; }
+    .signup-container {
+        min-height: 80vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+    }
+
+    .signup-card {
+        background: var(--card-bg);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        padding: 2.5rem;
+        width: 100%;
+        max-width: 650px;
+        box-shadow: 0 0 50px rgba(0, 243, 255, 0.1);
+    }
+
+    .card-header {
+        background: transparent;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding-bottom: 1.5rem;
+        margin-bottom: 2rem;
+        text-align: center;
+    }
+
+    .card-header h4 {
+        color: var(--text-primary);
+        font-size: 1.8rem;
+        margin-bottom: 0.5rem;
+        background: linear-gradient(45deg, var(--primary-glow), var(--accent-glow));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .card-header small {
+        color: var(--text-secondary);
+    }
+
+    .form-label {
+        color: var(--text-primary);
+        margin-bottom: 0.5rem;
+        display: block;
+    }
+
+    .form-control {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        color: var(--text-primary);
+        padding: 0.75rem 1rem;
+        width: 100%;
+        transition: all 0.3s ease;
+    }
+
+    .form-control:focus {
+        background: rgba(255, 255, 255, 0.08);
+        border-color: var(--primary-glow);
+        box-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
+    }
+
+    .btn-signup {
+        background: linear-gradient(45deg, var(--primary-glow), var(--secondary-glow));
+        border: none;
+        border-radius: 12px;
+        color: white;
+        padding: 0.75rem 2rem;
+        width: 100%;
+        transition: all 0.3s ease;
+    }
+
+    .btn-signup:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 30px rgba(0, 243, 255, 0.4);
+    }
+
+    .login-link {
+        color: var(--text-secondary);
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+    .login-link:hover {
+        color: var(--accent-glow);
+    }
+
+    .alert {
+        background: rgba(220, 53, 69, 0.1);
+        border: 1px solid rgba(220, 53, 69, 0.3);
+        color: #ff6b6b;
+        border-radius: 12px;
+        padding: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .errorlist {
+        list-style: none;
+        padding: 0;
+        margin: 0.5rem 0;
+        color: #ff6b6b;
+        font-size: 0.85rem;
+    }
+
+    .errorlist li {
+        background: rgba(220, 53, 69, 0.1);
+        padding: 0.5rem;
+        border-radius: 8px;
+        margin-bottom: 0.25rem;
+    }
+
+    .form-row {
+        margin-bottom: 1rem;
+    }
+
+    @media (max-width: 768px) {
+        .signup-card {
+            padding: 2rem;
+        }
+        
+        .col-md-6 {
+            margin-bottom: 1rem;
+        }
+    }
 </style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const formInputs = document.querySelectorAll('input, select');
+        formInputs.forEach(input => {
+            input.classList.add('form-control');
+            
+            input.addEventListener('focus', function() {
+                this.parentElement.style.transform = 'translateY(-2px)';
+            });
+            
+            input.addEventListener('blur', function() {
+                this.parentElement.style.transform = 'translateY(0)';
+            });
+        });
+    });
+</script>
 {% endblock %}
