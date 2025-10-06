@@ -1,7 +1,11 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
 <div class="dashboard-container">
+    
+    
+
     <div class="row">
         <!-- Welcome Section -->
         <div class="col-12">
@@ -112,6 +116,15 @@
 <style>
     .dashboard-container {
         padding: 2rem 0;
+    }
+
+    .logo-container {
+        margin-bottom: 2rem;
+    }
+
+    .dashboard-logo {
+        max-width: 120px;
+        height: auto;
     }
 
     .card {
@@ -247,6 +260,31 @@
         .summary-stats {
             grid-template-columns: 1fr;
         }
+        
+        .dashboard-logo {
+            max-width: 100px;
+        }
     }
 </style>
+
+<script>
+    // Auto refresh attendance status every 30 seconds
+    setInterval(function() {
+        // You can add auto-refresh logic here if needed
+        console.log('Dashboard auto-refresh check');
+    }, 30000);
+
+    // Add smooth animations for card hover effects
+    document.addEventListener('DOMContentLoaded', function() {
+        const cards = document.querySelectorAll('.card');
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px)';
+            });
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+    });
+</script>
 {% endblock %}
